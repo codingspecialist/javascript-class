@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>To-Do List</h1>
+    <button onclick="todoAllFetch()">todo 가져오기</button>
+    <ul class="todo-list" id="todoBox">
+
+    </ul>
+</div>
+<script>
+    async function todoAllFetch() {
+        let promiseData = await fetch("https://jsonplaceholder.typicode.com/todos");
+        let todos = await promiseData.json();
+        render(todos);
+    }
+
+    function render(todos) {
+        let el = document.querySelector("#todoBox");
+        for (const todo of todos) {
+            let newEl = document.createElement("li");
+            newEl.innerHTML = `
+                <input type="checkbox" id="todo-${todo.id}" style="text-decoration: none">
+                <label for="todo-1">${todo.title}</label>
+            `;
+            el.append(newEl);
+        }
+        addCheckBoxEvent();
+    }
+
+    function addCheckBoxEvent(){
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('click', () => {
+                if (checkbox.checked) {
+                    checkbox.nextElementSibling.style.textDecoration = 'line-through';
+                } else {
+                    checkbox.nextElementSibling.style.textDecoration = 'none';
+                }
+            });
+        });
+    }
+
+</script>
+</body>
+</html>
