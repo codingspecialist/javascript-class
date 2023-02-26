@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button onclick="runAsyncTask()">Promise Callback Test</button>
+<script>
+    function doAsyncTask() {
+        return new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                let success = false;
+                if (success) {
+                    resolve('Async task completed successfully.');
+                } else {
+                    reject('Async task failed.');
+                }
+            }, 1000);
+        });
+    }
+
+    async function runAsyncTask() {
+        console.log("test start");
+        try {
+            const result = await doAsyncTask();
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
+        console.log("test end");
+    }
+</script>
+</body>
+</html>
