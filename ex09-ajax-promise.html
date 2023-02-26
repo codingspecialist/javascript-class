@@ -9,6 +9,7 @@
 <button onclick="test1()">Promise1 Test</button>
 <button onclick="test2()">Promise2 Test</button>
 <button onclick="test3()">Promise3 Test</button>
+<button onclick="test4()">Promise4 Test</button>
 <script>
     function test1() {
         console.log('test1 Start');
@@ -35,10 +36,21 @@
         await new Promise((resolve) => {
             setTimeout(() => {
                 console.log("promise 처리완료");
-                resolve();
+                resolve("처리 완료");
             }, 2000);
         });
         console.log('test3 End');
+    }
+
+    async function test4() {
+        console.log('test4 Start');
+        await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                console.log("promise 처리완료");
+                reject("처리 실패");
+            }, 2000);
+        });
+        console.log('test4 End');
     }
 
 
