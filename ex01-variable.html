@@ -11,7 +11,7 @@
     console.log("정수", n1);
     console.log("실수", n2);
 
-    let n3 = "자바스크립트 자료형 강좌";
+    let n3 = '자바스크립트 "자료형" 강좌';
     console.log("문자열", n3);
 
     let n4 = true;
@@ -20,37 +20,67 @@
     let n5 = null;
     console.log("널", n5);
 
-    let n6 = undefined;
+    let n6 = undefined; // 정의되지 않은 타입
     let n7;
     console.log("언디파인", n6);
     console.log("언디파인", n7);
 
+    // Javascript Object Notation = Json
     let user = {
       id: 1,
       username: "ssar",
       password: "1234"
     };
+
+    let board = {
+        id:1,
+        title: "제목1",
+        content: "내용1",
+        user: {
+            id: 1,
+            username: "ssar",
+            password: "1234",
+            hobby : ["농구", "축구"]
+        }
+    }
+
     console.log("객체", user);
     console.log("객체", user.id);
     console.log("객체", user.username);
     console.log("객체", user.password);
 
-    let arr = [1,2,3];
+    let arr = [1,2,"문자열"]; // 띄엄, 띄엄 (연속되게 안들어감)
     console.log("배열", arr);
     console.log("배열", arr[0]);
     console.log("배열", arr[1]);
     console.log("배열", arr[2]);
 
+    fun1();
+
     function fun1(){
       console.log("fun1 함수");
     }
-    fun1();
 
-    let fun2 = function(){
+
+
+
+    let fun2 = function(){  // 익명함수
       console.log("fun2 함수");
     };
     fun2();
 
+
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+

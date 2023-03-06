@@ -6,7 +6,7 @@
     <style>
         .box {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             border: 1px solid black;
             padding: 10px;
         }
@@ -30,7 +30,7 @@
     <script>
         function render(){
             let el = document.querySelector("#outerBox");
-            for (let i = 1; i < 5; i++) {
+            for (let i = 1; i < 10; i++) {
                 el.append(makeCard(i));
             }
         }

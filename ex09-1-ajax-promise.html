@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button onclick="test0()">Promise0 Test</button>
+<button onclick="test1()">Promise1 Test</button>
+<button onclick="test2()">Promise2 Test</button>
+<button onclick="test3()">Promise3 Test</button>
+<button onclick="test4()">Promise4 Test</button>
+
+<script>
+    function test0() {
+        console.log('test0 Start');
+
+        // Promise 객체 자체는 비동기적으로 실행되지 않는다.
+        // Promise 객체는 내부에 비동기함수를 실행시키고 나서 결과를 리턴받기 위해 사용된다.
+        new Promise((resolve, reject) => {
+            console.log("통신완료");
+        });
+
+        console.log('test0 End');
+    }
+
+    // 이 부분이 taskQueue에 담겨 있다가 2초가 지나면 callback 되서 실행된다.
+    // 이때 조건은 callstack에 아무것도 없어야 한다. callstack에 할일이 많으면 실행되지 않는다.
+    // {
+    //     console.log("통신완료");
+    // }
+    function test1() {
+        console.log('test1 Start');
+
+        setTimeout(() => { // 이 친구는 taskQueue에 담긴다.
+            console.log("통신완료");
+        }, 2000);
+        console.log('test1 End');
+    }
+
+    function test2() {
+        let data;
+        console.log('test2 Start');
+
+        setTimeout(() => { // 이 친구는 taskQueue에 담긴다.
+            console.log("통신완료");
+            data = 10;
+        }, 2000);
+        console.log("값 : "+data);
+        console.log('test2 End');
+    }
+
+    function test3() {
+        console.log('test3 Start');
+
+        // 기다리지 않고 응답을 받았기 때문에 response는 Promise 객체이다.
+        let response = new Promise((resolve, reject) => {
+            setTimeout(() => { // 이 친구는 taskQueue에 담긴다.
+                console.log("통신완료");
+                let data = 10;
+                resolve(data);
+            }, 2000);
+        });
+
+        console.log("값 : "+response);
+        console.log('test3 End');
+    }
+
+    async function test4() {
+        console.log('test4 Start');
+
+        // await가 있기 때문에 Promise에 setTimeout을 실행만 해두고 test4 스택을 빠져나간다.
+        // setTimeout의 callback 될 함수는 taskQueue에 등록된다.
+        // 그리고 taskQueue에 등록된 callback 함수가 종료되면 resolove가 실행된다. (콜스택에 아무것도 없다면)
+        // resolve에 담긴 값은 response에 응답된다.
+        // resolve이기 때문에 await 이하의 코드가 실행된다.
+        // response에는 10이 담긴다.
+        let response = await new Promise((resolve, reject) => {
+            setTimeout(() => { // 이 친구는 taskQueue에 담긴다.
+                console.log("통신완료");
+                let data = 10;
+                resolve(data);
+            }, 2000);
+        });
+
+        console.log("값 : "+response);
+        console.log('test4 End');
+    }
+
+
+</script>
+</body>
+</html>

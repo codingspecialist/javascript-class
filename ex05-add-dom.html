@@ -16,16 +16,20 @@
     <button onclick="addPrepend()">prepend로 추가하기</button>
     <button onclick="addBefore()">before로 추가하기</button>
     <button onclick="addAfter()">after로 추가하기</button>
+
     <div class="box" id="outerBox">
 
     </div>
 
+
     <script>
         function addAppend(){
             let newEl = document.createElement("div");
+
+
             newEl.setAttribute("class", "box");
             newEl.setAttribute("id", "innerBox1");
-            newEl.innerHTML = "내부박스1";
+            newEl.innerHTML = "내부박스1"; // innerText는 무엇무엇이다.
 
             let el = document.querySelector("#outerBox");
             el.append(newEl);
